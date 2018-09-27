@@ -164,6 +164,7 @@ sudo gem install ${RUBY_GEMS[@]}
 echo "Installing global npm packages..."
 npm install marked -g
 
+
 echo "Configuring OSX..."
 
 # Require password as soon as screensaver or sleep mode starts
@@ -180,8 +181,5 @@ defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 # Disable "natural" scroll
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
-echo "Creating folder structure..."
-[[ ! -d Wiki ]] && mkdir Wiki
-[[ ! -d Workspace ]] && mkdir Workspace
 
 echo "Bootstrapping complete"
