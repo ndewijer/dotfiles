@@ -22,7 +22,7 @@
 # https://gist.github.com/mdschweda/2311e3f2c7062bf7367e44f8a7aa8b55 - vs code exts
 # https://dotfiles.github.io
 
-echo "Starting bootstrapping"
+echo "Starting install of casks and packages"
 
 # Check for Homebrew, install if we don't have it
 if test ! $(which brew); then
@@ -53,7 +53,6 @@ PACKAGES=(
     autoconf
     automake
     bash-completion
-    coreutils
     gdbm
     gettext
     icu4c
@@ -130,6 +129,10 @@ CASKS=(
     visual-studio-code
     vyprvpn
     docker
+    blender
+    android-file-transfer
+    ableton-live-lite
+    applepi-baker
 )
 
 
@@ -164,22 +167,6 @@ sudo gem install ${RUBY_GEMS[@]}
 echo "Installing global npm packages..."
 npm install marked -g
 
-
 echo "Configuring OSX..."
-
-# Require password as soon as screensaver or sleep mode starts
-defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
-
-# Show filename extensions by default
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-
-# Enable tap-to-click
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-
-# Disable "natural" scroll
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
-
 
 echo "Bootstrapping complete"
