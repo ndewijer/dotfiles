@@ -83,6 +83,7 @@ PACKAGES=(
     sqlite
     tmux
     git
+    git-lfs
     tree
     z
     docker-compose
@@ -93,6 +94,7 @@ PACKAGES=(
     tmux
     unrar
     the_silver_searcher
+    rename
 )
 
 echo "Installing packages..."
