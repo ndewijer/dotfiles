@@ -2,12 +2,6 @@ COMPUTER_NAME="orac"
 
 osascript -e 'tell application "System Preferences" to quit'
 
-# Ask for the administrator password upfront
-sudo -v
-
-# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
@@ -24,8 +18,9 @@ defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 echo "Disable automatic period substitution as it’s annoying when typing code"
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
-echo "Set standby delay to 24 hours (default is 1 hour)"
-sudo pmset -a standbydelay 86400
+# Only needed for the hackintosh
+echo "Disabling power nap and wake from standby"
+sudo pmset -a standby 0
 
 echo "Prevent computer sleep mode"
 sudo systemsetup -setcomputersleep Off > /dev/null
