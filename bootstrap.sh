@@ -22,6 +22,10 @@
 # https://gist.github.com/mdschweda/2311e3f2c7062bf7367e44f8a7aa8b55 - vs code exts
 # https://dotfiles.github.io
 
+# Load environment variables
+source $HOME/.dotfiles_env
+
+# Start with the homebrew stuff
 echo "Starting install of casks and packages"
 
 # Check for Homebrew, install if we don't have it
@@ -37,16 +41,16 @@ brew update
 brew tap homebrew/dupes
 
 echo "Starting install of packages"
-source ./packages.sh
+source $DOTFILES/packages.sh
 
 echo "Cleaning up..."
 brew cleanup
 
 echo "Installing casks..."
-source ./casks.sh
+source $DOTFILES/casks.sh
 
 echo "Starting install of fonts"
-source ./fonts.sh
+source $DOTFILES/fonts.sh
 
 echo "Installing Python packages..."
 PYTHON_PACKAGES=(
@@ -68,6 +72,6 @@ echo "Installing global npm packages..."
 npm install marked -g
 
 echo "Configuring OSX..."
-source ./config-macOS.sh
+source $DOTFILES/config-macOS.sh
 
 echo "Bootstrapping complete"
