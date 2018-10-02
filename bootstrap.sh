@@ -22,6 +22,11 @@
 # https://gist.github.com/mdschweda/2311e3f2c7062bf7367e44f8a7aa8b55 - vs code exts
 # https://dotfiles.github.io
 
+# Ask for password upfront and keep it alive until our script has finished
+sudo -v
+while true; do sudo -n true; sleep 60; kill -0 \"$$\" || exit; done 2>/dev/null & 
+
+
 # Load environment variables
 source $HOME/.dotfiles_env
 
@@ -73,5 +78,7 @@ npm install marked -g
 
 echo "Configuring OSX..."
 source $DOTFILES/config-macOS.sh
-
+    
 echo "Bootstrapping complete"
+
+neofetch

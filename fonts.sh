@@ -5,5 +5,7 @@ FONTS=(
     font-inconsolidata
     font-roboto
     font-clear-sans
+    font-source-code-pro-for-powerline
+    font-meslo-for-powerline
 )
 brew cask install ${FONTS[@]}
