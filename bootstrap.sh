@@ -46,16 +46,16 @@ brew update
 brew tap homebrew/dupes
 
 echo "Starting install of packages"
-source $DOTFILES/packages.sh
+source $DOTFILES/.packages.sh
 
 echo "Cleaning up..."
 brew cleanup
 
 echo "Installing casks..."
-source $DOTFILES/casks.sh
+source $DOTFILES/.casks.sh
 
 echo "Starting install of fonts"
-source $DOTFILES/fonts.sh
+source $DOTFILES/.fonts.sh
 
 echo "Installing Python packages..."
 PYTHON_PACKAGES=(
