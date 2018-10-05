@@ -1,70 +1,79 @@
-#!/usr/bin/env bash
 COMPUTER_NAME="orac"
 
+## Add a real one before running
+$SSH_PASSPHRASE="Password"
+
 osascript -e 'tell application "System Preferences" to quit'
+
+
+echo "Creating new SSH key - feel free to overwrite if you have a backup"
+if [[$SSH_PASSPHRASE = "Password"]]
+	read -p "Enter a proper SSH passphrase: " SSH_PASSPHRASE
+fi
+ssh-keygen -b 2048 -t rsa -f /tmp/sshkey -q -N SSH_PASSPHRASE
 
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
-echo "Configuring general UI/UX behaviour"
-# Set computer name (as done via System Preferences → Sharing)"
+
+echo "Set computer name (as done via System Preferences → Sharing)"
 sudo scutil --set ComputerName "$COMPUTER_NAME"
 sudo scutil --set HostName "$COMPUTER_NAME"
 sudo scutil --set LocalHostName "$COMPUTER_NAME"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$COMPUTER_NAME"
 
-# Disable auto capitalisation
+echo "Disable auto capitalisation"
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
-# Disable automatic period substitution as it’s annoying when typing code
+echo "Disable automatic period substitution as it’s annoying when typing code"
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
 # Only needed for the hackintosh
-# Disabling power nap and wake from standby"
+echo "Disabling power nap and wake from standby"
 sudo pmset -a standby 0
 
-# Prevent computer sleep mode
+echo "Prevent computer sleep mode"
 sudo systemsetup -setcomputersleep Off > /dev/null
 
-# Disable audio feedback when volume is changed
+echo "Disable audio feedback when volume is changed"
 defaults write com.apple.sound.beep.feedback -bool false
 
-# Disable the sound effects on boot
+echo "Disable the sound effects on boot"
 sudo nvram SystemAudioVolume=" "
 
-# Menu bar: disable transparency
+echo "Menu bar: disable transparency"
 defaults write com.apple.universalaccess reduceTransparency -bool true
 
-# Menu bar: show battery percentage
+echo "Menu bar: show battery percentage"
 defaults write com.apple.menuextra.battery ShowPercent YES
 
-# Expand save panel by default
+echo "Expand save panel by default"
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
-# Expand print panel by default
+echo "Expand print panel by default"
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
-# Save to disk (not to iCloud) by default
+echo "Save to disk (not to iCloud) by default"
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
-# Automatically quit printer app once the print jobs complete
+echo "Automatically quit printer app once the print jobs complete"
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
-# Disable the “Are you sure you want to open this application?” dialog
+echo "Disable the “Are you sure you want to open this application?” dialog"
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-# Disable Resume system-wide
+echo "Disable Resume system-wide"
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
-# Restart automatically if the computer freezes
+echo "Restart automatically if the computer freezes"
 sudo systemsetup -setrestartfreeze on
 
-# Disable Notification Center and remove the menu bar icon
+echo "Disable Notification Center and remove the menu bar icon"
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
-# Disable smart quotes and dashes as they’re annoying when typing code
+echo "Disable smart quotes and dashes as they’re annoying when typing code"
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
@@ -72,44 +81,43 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
 echo "Configuring input devices"
-
-# Disable "natural" scroll
+echo "Disable "natural" scroll"
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
-# Trackpad: enable tap to click for this user and for the login screen
+echo "Trackpad: enable tap to click for this user and for the login screen"
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
-# Increase sound quality for Bluetooth headphones/headsets
+echo "Increase sound quality for Bluetooth headphones/headsets"
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
-# Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
+echo "Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)"
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
-# Use scroll gesture with the Ctrl (^) modifier key to zoom
+echo "Use scroll gesture with the Ctrl (^) modifier key to zoom"
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 
-# Follow the keyboard focus while zoomed in
+echo "Follow the keyboard focus while zoomed in"
 defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
-# Disable press-and-hold for keys in favor of key repeat
+echo "Disable press-and-hold for keys in favor of key repeat"
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
-# Automatically illuminate built-in MacBook keyboard in low light
+echo "Automatically illuminate built-in MacBook keyboard in low light"
 defaults write com.apple.BezelServices kDim -bool true
 
-# Turn off keyboard illumination when computer is not used for 5 minutes
+echo "Turn off keyboard illumination when computer is not used for 5 minutes"
 defaults write com.apple.BezelServices kDimTime -int 300
 
-# Setting language and text formats to UK
+echo "Setting language and text formats to UK"
 defaults write NSGlobalDomain AppleLanguages -array "en" "nl"
 defaults write NSGlobalDomain AppleLocale -string "en_GB@currency=GBP"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
 
-# Setting timezone to Amsterdam
+echo "Setting timezone to Amsterdam"
 sudo systemsetup -settimezone "Europe/Amsterdam" > /dev/null
 
 # Disable auto-correct
@@ -120,189 +128,184 @@ sudo systemsetup -settimezone "Europe/Amsterdam" > /dev/null
 # Screen                                                                      #
 ###############################################################################
 echo "Setting screen configurations"
-
-# Require password immediately after sleep or screen saver begins
+echo "Require password immediately after sleep or screen saver begins"
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
-# Save screenshots to the desktop
+echo "Save screenshots to the desktop"
 defaults write com.apple.screencapture location -string "${HOME}/Desktop"
 
-# Save screenshots in PNG format
+echo "Save screenshots in PNG format"
 #  other options: BMP, GIF, JPG, PDF, TIFF
 defaults write com.apple.screencapture type -string "png"
 
-# Disable shadow in screenshots
+echo "Disable shadow in screenshots"
 defaults write com.apple.screencapture disable-shadow -bool true
 
-# Enable subpixel font rendering on non-Apple LCDs
+echo "Enable subpixel font rendering on non-Apple LCDs"
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
-# Remove slow animations when holding shift
+echo "Remove slow animations when holding shift"
 defaults write NSGlobalDomain FXEnableSlowAnimation -bool false
 
 ###############################################################################
 # Finder                                                                      #
 ###############################################################################
 echo "Setting Finder configuration"
-
-# Allow quitting via ⌘ + Q; doing so will also hide desktop icons
+echo "Allow quitting via ⌘ + Q; doing so will also hide desktop icons"
 defaults write com.apple.finder QuitMenuItem -bool true
 
-# Show hidden files by default
+echo "Show hidden files by default"
 #defaults write com.apple.finder AppleShowAllFiles -bool true
 
-# Show all filename extensions
+echo "Show all filename extensions"
 #defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
-# Show path bar
+echo "Show path bar"
 defaults write com.apple.finder ShowPathbar -bool true
 
-# Allow text selection in Quick Look
+echo "Allow text selection in Quick Look"
 defaults write com.apple.finder QLEnableTextSelection -bool true
 
 # Display full POSIX path as Finder window title
 #defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
-# Keep folders on top when sorting by name
+echo "Keep folders on top when sorting by name"
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
-# Search the current folder by default
+echo "Search the current folder by default"
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
-# Disable the warning when changing a file extension
+echo "Disable the warning when changing a file extension"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-# Avoid creating .DS_Store files on network or USB volumes
+echo "Avoid creating .DS_Store files on network or USB volumes"
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
-# Disable disk image verification
+echo "Disable disk image verification"
 defaults write com.apple.frameworks.diskimages skip-verify -bool true
 defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
 defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
-# Use AirDrop over every interface.
+echo "Use AirDrop over every interface."
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
-# Always open everything in Finder's list view.
+echo "Always open everything in Finder's list view."
 # Use list view in all Finder windows by default
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
-# Disable the warning before emptying the Trash
+echo "Disable the warning before emptying the Trash"
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
 ###############################################################################
 # Dock                                                                        #
 ###############################################################################
 echo "Setting Dock configuration"
-# Show indicator lights for open applications in the Dock
+echo "Show indicator lights for open applications in the Dock"
 defaults write com.apple.dock show-process-indicators -bool true
 
 # Automatically hide and show the Dock
 #defaults write com.apple.dock autohide -bool true
 
-# Make Dock icons of hidden applications translucent
+echo "Make Dock icons of hidden applications translucent"
 defaults write com.apple.dock showhidden -bool true
 
-## Speed up dock show
+#echo "Speed up dock show"
 #defaults write com.apple.Dock autohide-delay -float 0
 
-# Minimise in application"
+echo "Minimise in application"
 defaults write com.apple.dock minimize-to-application -bool true
 
 ###############################################################################
 # Dashboard                                                                   #
 ###############################################################################
 
-# Disable Dashboard"
+echo "Disable Dashboard"
 defaults write com.apple.dashboard mcx-disabled -bool true
 
-# Don’t show Dashboard as a Space"
+echo "Don’t show Dashboard as a Space"
 defaults write com.apple.dock dashboard-in-overlay -bool true
 
 ###############################################################################
 # Safari & WebKit                                                             #
 ###############################################################################
-
 echo "Configuring Safari"
-# Privacy: don’t send search queries to Apple"
+echo "Privacy: don’t send search queries to Apple"
 defaults write com.apple.Safari UniversalSearchEnabled -bool false
 defaults write com.apple.Safari SuppressSearchSuggestions -bool true
 
-# Press Tab to highlight each item on a web page
+echo "Press Tab to highlight each item on a web page"
 defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
 
-# Show the full URL in the address bar (note: this still hides the scheme)
+echo "Show the full URL in the address bar (note: this still hides the scheme)"
 defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
 
-# Set Safari’s home page to `about:blank` for faster loading
+echo "Set Safari’s home page to `about:blank` for faster loading"
 defaults write com.apple.Safari HomePage -string "about:blank"
 
-# Prevent Safari from opening ‘safe’ files automatically after downloading
+echo "Prevent Safari from opening ‘safe’ files automatically after downloading"
 defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 
-# Allow hitting the Backspace key to go to the previous page in history
+echo "Allow hitting the Backspace key to go to the previous page in history"
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
 
-# Hide Safari’s bookmarks bar by default
+echo "Hide Safari’s bookmarks bar by default"
 defaults write com.apple.Safari ShowFavoritesBar -bool false
 
-# Disable Safari’s thumbnail cache for History and Top Sites
+echo "Disable Safari’s thumbnail cache for History and Top Sites"
 defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
 
-# Hide Safari’s sidebar in Top Sites
+echo "Hide Safari’s sidebar in Top Sites"
 defaults write com.apple.Safari ShowSidebarInTopSites -bool false
 
-# Remove useless icons from Safari’s bookmarks bar
+echo "Remove useless icons from Safari’s bookmarks bar"
 defaults write com.apple.Safari ProxiesInBookmarksBar "()"
 
-# Allow hitting the Backspace key to go to the previous page in history
+echo "Allow hitting the Backspace key to go to the previous page in history"
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
 
-# Enable the Develop menu, the Web Inspector, and the debug menu in Safari
+echo "Enable the Develop menu, the Web Inspector, and the debug menu in Safari"
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 
-# Add a context menu item for showing the Web Inspector in web views
+echo "Add a context menu item for showing the Web Inspector in web views"
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
 ###############################################################################
 # Mail                                                                        #
 ###############################################################################
-
 echo "Configuring Apple Mail"
 
-# Display emails in threaded mode
+echo "Display emails in threaded mode"
 defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
 
-# Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
+echo "Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app"
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
-# Disable inline attachments (just show the icons)
+echo "Disable inline attachments (just show the icons)"
 defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 
 # Disable automatic spell checking
 #defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
 
-# Disable sound for incoming mail
+echo "Disable sound for incoming mail"
 defaults write com.apple.mail MailSound -string ""
 
-# Disable sound for other mail actions
+echo "Disable sound for other mail actions"
 defaults write com.apple.mail PlayMailSounds -bool false
 
-# Mark all messages as read when opening a conversation
+echo "Mark all messages as read when opening a conversation"
 defaults write com.apple.mail ConversationViewMarkAllAsRead -bool true
 
 ###############################################################################
 # Spotlight                                                                   #
 ###############################################################################
 echo "Configuring Spotlight search"
-
 # Hide Spotlight tray-icon (and subsequent helper)
 #sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 # Disable Spotlight indexing for any volume that gets mounted and has not yet
@@ -310,7 +313,7 @@ echo "Configuring Spotlight search"
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
 sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 
-# Changing indexing order and disable some file types
+echo "Changing indexing order and disable some file types"
 defaults write com.apple.spotlight orderedItems -array \
 	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
 	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
@@ -329,7 +332,7 @@ defaults write com.apple.spotlight orderedItems -array \
 	'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
 	'{"enabled" = 0;"name" = "SOURCE";}'
 
-# Rebuild spotlight indexes
+echo "Rebuild spotlight indexes"
 # Load new settings before rebuilding the index
 killall mds > /dev/null 2>&1
 
@@ -343,26 +346,24 @@ sudo mdutil -E / > /dev/null
 # Terminal                                                                    #
 ###############################################################################
 echo "Configuring Terminal"
-
-# Only use UTF-8 in Terminal.app
+echo "Only use UTF-8 in Terminal.app"
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Use "Pro" theme (black background color)
-defaults write com.apple.terminal "Default Window Settings" -string "Homebrew"
-defaults write com.apple.terminal "Startup Window Settings" -string "Homebrew"
+defaults write com.apple.terminal "Default Window Settings" -string "Pro"
+defaults write com.apple.terminal "Startup Window Settings" -string "Pro"
 
-# Disable audible and visual bells
+echo "Disable audible and visual bells"
 defaults write com.apple.terminal "Bell" -bool false
 defaults write com.apple.terminal "VisualBell" -bool false
 
-# Disable the annoying line marks
+echo "Disable the annoying line marks"
 defaults write com.apple.Terminal ShowLineMarks -int 0
 
 ###############################################################################
 # Activity Monitor                                                            #
 ###############################################################################
-echo "Configuring Activity Monitor"
-
+echo "Configuring the Activity Monitor"
 # Show the main window when launching Activity Monitor
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
 
@@ -380,35 +381,34 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 # Mac App Store                                                               #
 ###############################################################################
 echo "Configuring AppStore"
-
 # Enable the WebKit Developer Tools in the Mac App Store
 #defaults write com.apple.appstore WebKitDeveloperExtras -bool true
 
 # Enable Debug Menu in the Mac App Store
 #defaults write com.apple.appstore ShowDebugMenu -bool true
 
-# Enable the automatic update check
+echo "Enable the automatic update check"
 defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 
-# Check for software updates daily, not just once per week
+echo "Check for software updates daily, not just once per week"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
-# Download newly available updates in background
+echo "Download newly available updates in background"
 defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
 
 # Install System data files & security updates
-#defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
+##defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 
-# Enable **app** auto-update
+echo "Enable **app** auto-update"
 defaults write com.apple.commerce AutoUpdate -bool true
 
-# Prevent auto-reboot on macOS updates
+echo "Prevent auto-reboot on macOS updates"
 defaults write com.apple.commerce AutoUpdateRestartRequired -bool false
 
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
-echo "Restarting configured applications"
+
 for app in "Address Book" "Calendar" "Contacts" "Dock" "Finder" "Mail" "Safari" "SystemUIServer" "iCal"; do
   killall "${app}" &> /dev/null
 done

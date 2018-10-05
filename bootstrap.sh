@@ -77,7 +77,7 @@ echo "Installing global npm packages..."
 npm install marked -g
 
 echo "Configuring OSX..."
-source $DOTFILES/config-macOS.sh
+source $DOTFILES/.macos.sh
     
 echo "Bootstrapping complete"
 
