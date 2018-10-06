@@ -79,6 +79,9 @@ npm install marked -g
 echo "Configuring OSX..."
 source $DOTFILES/.macos.sh
     
+echo "Installing Mac App Store apps"
+source $DOTFILES/.mas.sh
+
 echo "Bootstrapping complete"
 
 neofetch
