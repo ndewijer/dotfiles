@@ -405,6 +405,9 @@ defaults write com.apple.commerce AutoUpdate -bool true
 echo "Prevent auto-reboot on macOS updates"
 defaults write com.apple.commerce AutoUpdateRestartRequired -bool false
 
+# advanced disk utils
+write com.apple.DiskUtility advanced-image-options 1
+
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
