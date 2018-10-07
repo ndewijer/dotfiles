@@ -63,3 +63,5 @@ PACKAGES=(
 
 echo "Installing packages..."
 brew install ${PACKAGES[@]}
+
+echo "Finished installing packages."

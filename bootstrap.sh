@@ -28,13 +28,13 @@ while true; do sudo -n true; sleep 60; kill -0 \"$$\" || exit; done 2>/dev/null 
 
 
 # Load environment variables
-source $HOME/.dotfiles_env
+source $HOME/dotfiles/.dotfiles_env
 
 # Start with the homebrew stuff
 echo "Starting install of casks and packages"
 
 # Check for Homebrew, install if we don't have it
-if test ! $(which brew); then
+if ! $(which brew); then
     echo "Installing homebrew..."
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
@@ -42,20 +42,17 @@ fi
 # Update homebrew recipes
 brew update
 
-# Install GNU core utilities (those that come with OS X are outdated)
-brew tap homebrew/dupes
-
 echo "Starting install of packages"
-source $DOTFILES/packages.sh
+source $DOTFILES/.packages.sh
 
 echo "Cleaning up..."
 brew cleanup
 
 echo "Installing casks..."
-source $DOTFILES/casks.sh
+source $DOTFILES/.casks.sh
 
 echo "Starting install of fonts"
-source $DOTFILES/fonts.sh
+source $DOTFILES/.fonts.sh
 
 echo "Installing Python packages..."
 PYTHON_PACKAGES=(
@@ -77,8 +74,11 @@ echo "Installing global npm packages..."
 npm install marked -g
 
 echo "Configuring OSX..."
-source $DOTFILES/config-macOS.sh
+source $DOTFILES/.macos.sh
     
+echo "Installing Mac App Store apps"
+source $DOTFILES/.mas.sh
+
 echo "Bootstrapping complete"
 
 neofetch
