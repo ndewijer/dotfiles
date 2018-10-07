@@ -73,10 +73,11 @@ POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%{%B%F{black}%K{yellow}%} $user_symbo
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-#plugins=(
-#  git brew npm
-#  zsh-autosuggestions
-#)
+plugins=(
+  git
+  zsh-autosuggestions
+  docker
+)
 
 source $ZSH/oh-my-zsh.sh
 
