@@ -15,6 +15,7 @@ CASKS=(
     google-chrome
     handbrake
     iterm2
+    java
     skype
     slack
     sourcetree
@@ -24,7 +25,6 @@ CASKS=(
     vagrant
     virtualbox
     visual-studio
-    visual-studio-code
     vivaldi
     vlc
     vyprvpn
