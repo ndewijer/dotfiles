@@ -28,22 +28,19 @@ while true; do sudo -n true; sleep 60; kill -0 \"$$\" || exit; done 2>/dev/null 
 
 
 # Load environment variables
-source $HOME/.dotfiles_env
+source $HOME/dotfiles/.dotfiles_env
 
 # Start with the homebrew stuff
 echo "Starting install of casks and packages"
 
 # Check for Homebrew, install if we don't have it
-if test ! $(which brew); then
+if ! $(which brew); then
     echo "Installing homebrew..."
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # Update homebrew recipes
 brew update
-
-# Install GNU core utilities (those that come with OS X are outdated)
-brew tap homebrew/dupes
 
 echo "Starting install of packages"
 source $DOTFILES/.packages.sh

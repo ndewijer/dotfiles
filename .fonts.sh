@@ -2,7 +2,6 @@
 echo "Installing fonts..."
 brew tap caskroom/fonts
 FONTS=(
-    font-inconsolidata
     font-roboto
     font-clear-sans
     font-source-code-pro-for-powerline

@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-brew install caskroom/cask/brew-cask
 
 CASKS=(
     ableton-live-lite
