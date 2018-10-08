@@ -31,10 +31,10 @@ while true; do sudo -n true; sleep 60; kill -0 \"$$\" || exit; done 2>/dev/null 
 source $HOME/dotfiles/.dotfiles_env
 
 # Start with the homebrew stuff
-echo "Starting install of casks and packages"
+echo "\nStarting install of casks and packages"
 
 # Check for Homebrew, install if we don't have it
-if ! $(which brew); then
+if ! which brew; then
     echo "Installing homebrew..."
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
@@ -75,9 +75,18 @@ npm install marked -g
 
 echo "Configuring OSX..."
 source $DOTFILES/.macos.sh
+
+echo "Starting VS Code and extensions."
+source $DOTFILES/.vscodeextensions
+
+echo "Installing terminal replacement - iTerm + zsh +oh my zsh"
+source $DOTFILES/.terminal.sh
     
-echo "Installing Mac App Store apps"
-source $DOTFILES/.mas.sh
+#echo "Installing Mac App Store apps"
+#source $DOTFILES/.mas.sh
+
+echo "Switching shell to ZSH"
+chsh -s /usr/local/bin/zsh
 
 echo "Bootstrapping complete"
 
