@@ -15,6 +15,7 @@ PACKAGES=(
     ack
     autoconf
     automake
+    awscli
     bash-completion
     docker-compose
     gdbm
@@ -23,6 +24,7 @@ PACKAGES=(
     git
     git-lfs
     htop
+    kubernetes-cli
     icu4c
     libdvdcss
     libidn2
@@ -36,18 +38,19 @@ PACKAGES=(
     nodenv
     openssl
     openssl@1.1
+    packer
     pcre
     pkg-config
     python
-    python3
+    python3 
     qt
     readline
     rename
     sphinx-doc
     sqlite
     ssh-copy-id
+    terraform
     the_silver_searcher
-    tmux
     tmux
     todolist
     tree
@@ -59,6 +62,7 @@ PACKAGES=(
     z
     zsh
     zsh-syntax-highlighting
+    zsh-completions
 )
 
 echo "Installing packages..."
