@@ -7,15 +7,18 @@ CASKS=(
     arduino
     blender
     calibre
+    chefdk
     cool-retro-term
     docker
     dropbox
     firefox
     fritzing
     google-chrome
+    gitkraken
     handbrake
     iterm2
     java
+    powershell
     skype
     slack
     sourcetree
