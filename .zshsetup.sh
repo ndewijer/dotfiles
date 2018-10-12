@@ -14,8 +14,12 @@ git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/theme
 brew install zsh-autosuggestions
 brew install zsh-syntax-highlighting
 
+echo "Moving zsh config files to user root"
 # Get and use pre-configured .zshrc file
 sudo yes | cp -rf .zshrc ~/.zshrc
+
+# Copy our aliases file to user root
+sudo yes | cp -rf .zsh_aliases ~/.zsh_aliases
 
 # reload .zshrc
 source ~/.zshrc

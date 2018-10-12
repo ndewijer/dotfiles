@@ -42,19 +42,19 @@ fi
 # Update homebrew recipes
 brew update
 
-echo "Starting install of packages"
+echo "\nStarting install of packages"
 source $DOTFILES/.packages.sh
 
 echo "Cleaning up..."
 brew cleanup
 
-echo "Installing casks..."
+echo "\nInstalling casks..."
 source $DOTFILES/.casks.sh
 
-echo "Starting install of fonts"
+echo "\nStarting install of fonts"
 source $DOTFILES/.fonts.sh
 
-echo "Installing Python packages..."
+echo "\nInstalling Python packages..."
 PYTHON_PACKAGES=(
     ipython
     virtualenv
@@ -62,7 +62,7 @@ PYTHON_PACKAGES=(
 )
 sudo pip install ${PYTHON_PACKAGES[@]}
 
-echo "Installing Ruby gems"
+echo "\nInstalling Ruby gems"
 RUBY_GEMS=(
     bundler
     filewatcher
@@ -70,24 +70,24 @@ RUBY_GEMS=(
 )
 sudo gem install ${RUBY_GEMS[@]}
 
-echo "Installing global npm packages..."
+echo "\nInstalling global npm packages..."
 npm install marked -g
 
-echo "Configuring OSX..."
+echo "\nConfiguring OSX..."
 source $DOTFILES/.macos.sh
 
-echo "Starting VS Code and extensions."
+echo "\nStarting VS Code and extensions."
 source $DOTFILES/.vscodeextensions
 
-echo "Installing terminal replacement - iTerm + zsh +oh my zsh"
-source $DOTFILES/.terminal.sh
+echo "\nInstalling terminal replacement - iTerm + zsh +oh my zsh"
+source $DOTFILES/.zshsetup.sh
     
 #echo "Installing Mac App Store apps"
 #source $DOTFILES/.mas.sh
 
-echo "Switching shell to ZSH"
+echo "\nSwitching shell to ZSH"
 chsh -s /usr/local/bin/zsh
 
 echo "Bootstrapping complete"
-
+echo "==============================================================="
 neofetch
