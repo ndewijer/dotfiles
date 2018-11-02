@@ -6,6 +6,7 @@ alias .....="cd ../../../.."
 
 alias zshconfig="nano ~/.zshrc"
 alias ohmyzsh="nano ~/.oh-my-zsh"
+alias reloadshell=". ~/.zshrc"
 
 # Shortcuts
 alias godownloads="cd ~/Downloads"
