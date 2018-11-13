@@ -90,5 +90,7 @@ code --install-extension xabikos.reactsnippets
 
 echo "Finished installing VS Code extensions."
 
+# RESt client
+code --install-extension humao.rest-client
 
 
