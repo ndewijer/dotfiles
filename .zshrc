@@ -9,11 +9,12 @@ DEFAULT_USER="adrianjoiner"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-if [[ $(print -P "%#") =~ "#" ]]; then
-   user_symbol = "#"
-fi
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%{%B%F{black}%K{yellow}%} $user_symbol%{%b%f%k%F{yellow}%} %{%f%}"
-ZSH_THEME="powerlevel9k/powerlevel9k"
+#if [[ $(print -P "%#") =~ "#" ]]; then
+#   user_symbol = "#"
+#fi
+#POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%{%B%F{black}%K{yellow}%} $user_symbol%{%b%f%k%F{yellow}%} %{%f%}"
+#ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="rkj-repos"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -69,6 +70,9 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  docker
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -84,7 +88,7 @@ source $ZSH/oh-my-zsh.sh
 #if [[ -n $SSH_CONNECTION ]] || export DEFAULT_USER-"adrianjoiner"; then
 #   export EDITOR='nano'
 # else
-   export EDITOR='nano'
+#   export EDITOR='nano'
 # fi
 
 # Compilation flags
@@ -104,6 +108,10 @@ source $ZSH/oh-my-zsh.sh
 
 . ~/.zsh_aliases
 
+if [ -f ~/.bash_profile ]; then 
+    . ~/.bash_profile;
+fi
+
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -113,3 +121,6 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 quickstart() {
     cd ~/dev/Repos/ && git clone "$1" && cd $(basename $_ .git) && code .
 }
+
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
