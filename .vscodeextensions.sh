@@ -88,9 +88,18 @@ code --install-extension xabikos.javascriptsnippets
 # React
 code --install-extension xabikos.reactsnippets
 
-echo "Finished installing VS Code extensions."
-
 # RESt client
 code --install-extension humao.rest-client
 
+# XML Tools
+code --install dotjoshjohnson.xml
+code --install ms-vscode.powershell
+
+# YAML support
+code --install redhat.vscode-yaml
+
+# MSSQL
+code --install ms-mssql.mssq
+
+echo "Finished installing VS Code extensions."
 

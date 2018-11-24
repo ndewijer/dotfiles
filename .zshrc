@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/adrianjoiner/.oh-my-zsh"
+export ZSH="/Users/$(whoami)/.oh-my-zsh"
 DEFAULT_USER="adrianjoiner"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -13,8 +13,20 @@ DEFAULT_USER="adrianjoiner"
 #   user_symbol = "#"
 #fi
 #POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%{%B%F{black}%K{yellow}%} $user_symbol%{%b%f%k%F{yellow}%} %{%f%}"
-#ZSH_THEME="powerlevel9k/powerlevel9k"
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel9k/powerlevel9k"
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='red'
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%f"
+#ZSH_THEME="agnoster"
+
+# Visual customisation of second command prompt
+local user_symbol="→"
+if [[ $(print -P "%#") =~ "#" ]]; then
+   user_symbol = "#"
+fi
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=" $user_symbol "
+
+
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -109,8 +121,6 @@ source $ZSH/oh-my-zsh.sh
 # Add aliases from an external file
 . ~/.zsh_aliases
 
-. ~/.zsh_aliases
-
 if [ -f ~/.bash_profile ]; then 
     . ~/.bash_profile;
 fi
@@ -125,5 +135,8 @@ quickstart() {
     cd ~/dev/Repos/ && git clone "$1" && cd $(basename $_ .git) && code .
 }
 
+dh() {
+    export DOCKER_HOST="tcp://$1"
+}
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

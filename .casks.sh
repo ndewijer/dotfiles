@@ -7,7 +7,8 @@ brew cask install applepi-baker
 brew cask install arduino
 brew cask install blender
 brew cask install calibre
-brew cask install chefdk
+brew cask install chef/chef/chefdk
+brew cask install chef/chef/inspec
 brew cask install cool-retro-term
 brew cask install docker
 brew cask install dropbox
