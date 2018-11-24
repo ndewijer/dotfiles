@@ -1,34 +1,33 @@
 #!/usr/bin/env bash
 
-CASKS=(
-    ableton-live-lite
-    android-file-transfer
-    applepi-baker
-    arduino
-    blender
-    calibre
-    cool-retro-term
-    docker
-    dropbox
-    firefox
-    fritzing
-    google-chrome
-    handbrake
-    iterm2
-    java
-    skype
-    slack
-    sourcetree
-    superduper
-    the-unarchiver
-    tunnelblick
-    vagrant
-    virtualbox
-    visual-studio
-    vivaldi
-    vlc
-    vyprvpn
-)
-
 echo "Installing cask apps..."
-brew cask install ${CASKS[@]}
+brew cask install android-file-transfer
+brew cask install ableton-live-lite
+brew cask install applepi-baker
+brew cask install arduino
+brew cask install blender
+brew cask install calibre
+brew cask install chefdk
+brew cask install cool-retro-term
+brew cask install docker
+brew cask install dropbox
+brew cask install firefox
+brew cask install fritzing
+brew cask install google-chrome
+brew cask install gitkraken
+brew cask install handbrake
+brew cask install iterm2
+brew cask install java
+brew cask install powershell
+brew cask install skype
+brew cask install slack
+brew cask install sourcetree
+brew cask install superduper
+brew cask install the-unarchiver
+brew cask install tunnelblick
+brew cask install vagrant
+brew cask install virtualbox
+brew cask install visual-studio
+brew cask install vivaldi
+brew cask install vlc
+brew cask install vyprvpn

@@ -6,11 +6,13 @@ alias .....="cd ../../../.."
 
 alias zshconfig="nano ~/.zshrc"
 alias ohmyzsh="nano ~/.oh-my-zsh"
+alias reloadshell=". ~/.zshrc"
 
 # Shortcuts
 alias godownloads="cd ~/Downloads"
 alias godesktop="cd ~/Desktop"
 alias gorepos="cd ~/Dev/Repos"
+alias gohome="cd ~/"
 
 # Always enable coloured `grep` output
 alias grep='grep --color=auto'
@@ -76,7 +78,6 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reloadshell="exec ${SHELL} -l"
-
 
 # Mac
 alias showhidden="defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder"
