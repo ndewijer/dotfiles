@@ -14,7 +14,7 @@ DEFAULT_USER="adrianjoiner"
 #fi
 #POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%{%B%F{black}%K{yellow}%} $user_symbol%{%b%f%k%F{yellow}%} %{%f%}"
 #ZSH_THEME="powerlevel9k/powerlevel9k"
-ZSH_THEME="rkj-repos"
+ZSH_THEME="agnoster"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -73,6 +73,7 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   docker
+  osx
 )
 
 source $ZSH/oh-my-zsh.sh
