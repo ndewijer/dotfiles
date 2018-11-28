@@ -8,7 +8,15 @@ alias zshconfig="nano ~/.zshrc"
 alias ohmyzsh="nano ~/.oh-my-zsh"
 alias reloadshell=". ~/.zshrc"
 alias aliases="nano  ~/.zsh_aliases"
+
+#todolist
 alias td="todolist "
+alias tdl="todolist list"
+alias tda="todolist add "
+alias tdc="todolist complete "
+alias tduc="todolist uncomplete "
+alias tdarc="todolist archive "
+alias tdd="todolist delete "
 
 # Shortcuts
 alias godownloads="cd ~/Downloads"
