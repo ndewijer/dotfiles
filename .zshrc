@@ -121,10 +121,6 @@ source $ZSH/oh-my-zsh.sh
 # Add aliases from an external file
 . ~/.zsh_aliases
 
-if [ -f ~/.bash_profile ]; then 
-    . ~/.bash_profile;
-fi
-
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
