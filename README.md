@@ -1,6 +1,6 @@
 # AJ's dotfiles
 
-This is my all-singing all-dancing bootstarp script for setting up a new macOS machine.
+This is my all-singing all-dancing bootstrap script for setting up a new macOS machine.
 
 ## Installation steps
 
